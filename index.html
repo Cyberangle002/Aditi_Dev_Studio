@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aditi Dev Studio | Premium Web Designer</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="main-logo-container" style="perspective: 1000px; margin-bottom: 3rem;">
+                <div class="main-logo">
+                    <h1>ADS</h1>
+                    <p>STUDIO</p>
+                </div>
+            </div>
+
+            <h2 style="font-size: 3.5rem; margin-bottom: 1.5rem; font-weight: 800; text-shadow: 0 5px 20px rgba(0,0,0,0.3); animation: fadeInUp 1s ease 0.3s backwards;">
+                ADITI DEV STUDIO
+            </h2>
+            <p style="font-size: 1.8rem; margin-bottom: 1rem; opacity: 0.95; animation: fadeInUp 1s ease 0.5s backwards;">
+                Premium Web Design & Development
+            </p>
+            <p style="font-size: 1.2rem; max-width: 700px; margin: 0 auto 3rem; line-height: 1.8; opacity: 0.9; animation: fadeInUp 1s ease 0.7s backwards;">
+                Creating stunning digital experiences that transform businesses. 
+                We specialize in modern web design, development, and digital solutions 
+                that make your brand stand out.
+            </p>
+
+            <div class="cta-buttons">
+                <a href="Home.html" class="btn-primary">Explore Now</a>
+                <a href="contact.html" class="btn-secondary">Get In Touch</a>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section style="padding: 6rem 2rem; background: white;">
+        <div class="container">
+            <h2 class="section-title" style="color: #667eea;">Why Choose Us?</h2>
+            <p class="section-subtitle" style="color: #64748b;">
+                We deliver excellence in every project with cutting-edge technology and creative design
+            </p>
+
+            <div class="features-grid">
+                <div class="feature-box">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Creative Design</h3>
+                    <p>Stunning visuals that capture attention and engage your audience</p>
+                </div>
+
+                <div class="feature-box">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Fast Performance</h3>
+                    <p>Lightning-fast websites optimized for speed and efficiency</p>
+                </div>
+
+                <div class="feature-box">
+                    <div class="feature-icon">📱</div>
+                    <h3>Responsive Design</h3>
+                    <p>Perfect experience on all devices, from mobile to desktop</p>
+                </div>
+
+                <div class="feature-box">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Secure & Reliable</h3>
+                    <p>Built with security best practices and reliable infrastructure</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section-gradient" style="padding: 5rem 2rem;">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Our Impact</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <span class="stat-number">50</span>
+                    <span class="stat-label">Projects Completed</span>
+                </div>
+
+                <div class="stat-box">
+                    <span class="stat-number">40</span>
+                    <span class="stat-label">Happy Clients</span>
+                </div>
+
+                <div class="stat-box">
+                    <span class="stat-number">5</span>
+                    <span class="stat-label">Years Experience</span>
+                </div>
+
+                <div class="stat-box">
+                    <span class="stat-number">100</span>
+                    <span class="stat-label">Satisfaction Rate</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/919876543210" target="_blank" class="whatsapp-float" title="Chat with us on WhatsApp">
+        💬
+    </a>
+
+    <script>
+        // Smooth scroll for scroll indicator
+        const scrollIndicator = document.querySelector('.scroll-indicator');
+        if (scrollIndicator) {
+            scrollIndicator.addEventListener('click', () => {
+                window.scrollTo({
+                    top: window.innerHeight,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        // Add scroll animation to elements
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-box, .stat-box').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Counter animation for stats
+        const animateCounter = (element, target, suffix = '') => {
+            let current = 0;
+            const increment = target / 100;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target + suffix;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current) + suffix;
+                }
+            }, 20);
+        };
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const number = entry.target.querySelector('.stat-number');
+                    const text = number.textContent;
+                    const value = parseInt(text);
+                    
+                    if (text.includes('100')) {
+                        animateCounter(number, value, '%');
+                    } else {
+                        animateCounter(number, value, '+');
+                    }
+                    
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-box').forEach(box => {
+            statsObserver.observe(box);
+        });
+    </script>
+
+</body>
+</html>
